@@ -112,6 +112,7 @@ export function parseSyllabusToRoadmap(
         id: `step-${seq}`,
         weekLabel,
         rawMatchedLine: line,
+        matchedLessonId: bestMissionId,
         matchedMissionId: bestMissionId,
         completed: false,
       });
@@ -128,6 +129,7 @@ export function parseSyllabusToRoadmap(
           id: `step-${seq}`,
           weekLabel: `Lesson ${seq}`,
           rawMatchedLine: mission.title,
+          matchedLessonId: mission.id,
           matchedMissionId: mission.id,
           completed: false,
         });

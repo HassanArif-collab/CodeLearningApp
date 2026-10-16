@@ -1,33 +1,83 @@
 export type SupportedLanguage = 'python' | 'cpp' | 'java' | 'javascript';
 
+export interface VisualConceptCard {
+  title: string;
+  subtitle: string;
+  explanation: string;
+  analogyTagline: string;
+  widgetType:
+    | 'robot_talk'
+    | 'variable_box'
+    | 'math_update'
+    | 'decision_gate'
+    | 'loop_track'
+    | 'locker_rack'
+    | 'function_machine'
+    | 'pointer_remote';
+  initialBoxName?: string;
+  initialBoxValue?: string | number;
+}
+
+export interface VisualQuizOption {
+  id: string;
+  label: string;
+  sublabel?: string;
+  isCorrect: boolean;
+  explanation: string;
+}
+
+export interface VisualQuizCard {
+  question: string;
+  contextNote?: string;
+  options: VisualQuizOption[];
+}
+
+export interface CodeChallengeCard {
+  instruction: string;
+  targetVarName?: string;
+  expectedValue?: any;
+  expectedOutputIncludes?: string;
+  starterCode: Record<SupportedLanguage, string>;
+  hint: string;
+}
+
 export interface MissionGoal {
-  description: string;            // Simple 1-sentence goal e.g. "Make the robot print 'Hello, World!'"
-  targetVarName?: string;         // Variable to inspect e.g. "coins"
-  expectedValue?: any;            // Target value e.g. 50
-  expectedOutputIncludes?: string;// Text printed to screen e.g. "Hello, World!"
-  hint: string;                   // Friendly hint if student is stuck
+  description: string;
+  targetVarName?: string;
+  expectedValue?: any;
+  expectedOutputIncludes?: string;
+  hint: string;
 }
 
 export interface LevelMission {
   id: string;
-  chapterNumber: number;
   levelNumber: number;
   emoji: string;
   title: string;
   shortTagline: string;
-  conceptAnalogy: string;         // 1-2 sentence real-world metaphor
-  goal: MissionGoal;
-  starterCode: Record<SupportedLanguage, string>;
+  conceptAnalogy?: string;
   xpReward: number;
+  starterCode: Record<SupportedLanguage, string>;
+  goal: MissionGoal;
+  concept?: VisualConceptCard;
+  quiz?: VisualQuizCard;
+  challenge?: CodeChallengeCard;
 }
 
-export interface RoadmapChapter {
+export interface BrilliantLesson {
   id: string;
-  chapterNumber: number;
+  levelNumber: number;
+  emoji: string;
   title: string;
-  subtitle: string;
-  icon: string;
-  levels: LevelMission[];
+  shortTagline: string;
+  conceptAnalogy?: string;
+  xpReward: number;
+  starterCode?: Record<SupportedLanguage, string>;
+  goal?: MissionGoal;
+  // Brilliant 3-Phase Flow
+  concept: VisualConceptCard;
+  quiz: VisualQuizCard;
+  challenge: CodeChallengeCard;
 }
 
 export interface VisualStorageBox {
@@ -36,10 +86,8 @@ export interface VisualStorageBox {
   previousValue?: string | number;
   isNew?: boolean;
   hasChanged?: boolean;
-  typeLabel: string;              // "Number", "Text", "Locker Row", "Remote Pointer"
+  typeLabel: string;
   listItems?: (string | number)[];
-  activeLockerIdx?: number;
-  pointsToBoxName?: string;
 }
 
 export interface LiveTraceStep {
@@ -66,7 +114,8 @@ export interface SyllabusRoadmapItem {
   id: string;
   weekLabel: string;
   rawMatchedLine: string;
-  matchedMissionId: string;
+  matchedLessonId?: string;
+  matchedMissionId?: string;
   completed: boolean;
 }
 

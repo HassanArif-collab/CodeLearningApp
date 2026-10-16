@@ -292,7 +292,7 @@ export const SyllabusUploadView: React.FC = () => {
 
           <div className="space-y-2">
             {roadmap.items.map((item) => {
-              const matchedMission = ALL_MISSIONS.find((m) => m.id === item.matchedMissionId);
+              const matchedMission = ALL_MISSIONS.find((m) => m.id === item.matchedLessonId || m.id === item.matchedMissionId);
 
               return (
                 <div
@@ -330,7 +330,7 @@ export const SyllabusUploadView: React.FC = () => {
 
                     {matchedMission && (
                       <Link
-                        to={`/mission/${matchedMission.id}?lang=${roadmap.detectedLanguage}`}
+                        to={`/lesson/${matchedMission.id}?lang=${roadmap.detectedLanguage}`}
                         className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 hover:bg-emerald-500 hover:text-slate-950 text-emerald-300 transition shrink-0"
                       >
                         <Code2 className="h-3 w-3" />

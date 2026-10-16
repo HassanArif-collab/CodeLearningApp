@@ -72,7 +72,7 @@ export const ExploreView: React.FC = () => {
         {filteredMissions.map((mission) => (
           <Link
             key={mission.id}
-            to={`/mission/${mission.id}`}
+            to={`/lesson/${mission.id}`}
             className="group bg-slate-900 border border-slate-800 hover:border-emerald-500/50 rounded-2xl p-5 shadow-lg transition flex flex-col justify-between hover:-translate-y-0.5"
           >
             <div className="space-y-3">

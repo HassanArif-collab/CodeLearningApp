@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navbar } from './components/layout/Navbar';
 import { RoadmapView } from './components/roadmap/RoadmapView';
+import { BrilliantLessonView } from './components/brilliant/BrilliantLessonView';
 import { MissionStudio } from './components/challenge/MissionStudio';
 import { ExploreView } from './components/explore/ExploreView';
 import { SyllabusUploadView } from './components/syllabus/SyllabusUploadView';
@@ -16,7 +17,8 @@ export const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<RoadmapView />} />
             <Route path="/roadmap" element={<RoadmapView />} />
-            <Route path="/mission/:id" element={<MissionStudio />} />
+            <Route path="/lesson/:id" element={<BrilliantLessonView />} />
+            <Route path="/mission/:id" element={<BrilliantLessonView />} />
             <Route path="/explore" element={<ExploreView />} />
             <Route path="/sandbox" element={<MissionStudio isPlaygroundMode={true} />} />
             <Route path="/syllabus" element={<SyllabusUploadView />} />

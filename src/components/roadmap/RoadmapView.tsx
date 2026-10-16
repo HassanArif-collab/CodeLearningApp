@@ -66,7 +66,7 @@ export const RoadmapView: React.FC = () => {
         {/* 1-Click Start Button */}
         <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
           <Link
-            to={`/mission/${nextMission.id}`}
+            to={`/lesson/${nextMission.id}`}
             className="px-6 py-3 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-sm transition shadow-lg shadow-emerald-500/25 flex items-center gap-2 group"
           >
             <Play className="h-4 w-4 fill-current group-hover:scale-110 transition" />
@@ -110,7 +110,7 @@ export const RoadmapView: React.FC = () => {
             return (
               <div key={mission.id} className="w-full max-w-md">
                 <Link
-                  to={unlocked ? `/mission/${mission.id}` : '#'}
+                  to={unlocked ? `/lesson/${mission.id}` : '#'}
                   onClick={(e) => {
                     if (!unlocked) e.preventDefault();
                   }}
