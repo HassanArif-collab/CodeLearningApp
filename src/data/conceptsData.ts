@@ -1,353 +1,379 @@
-import { StarterLesson } from '../types/visualizer';
+import { LevelMission } from '../types/visualizer';
 
-export const STARTER_LESSONS: StarterLesson[] = [
-  // Lesson 1: What is code?
+export const ALL_MISSIONS: LevelMission[] = [
+  // Level 1: First Steps (The Absolute Simplest Start)
   {
-    id: 'what-is-code-and-print',
-    stepOrder: 1,
+    id: 'level-1-talking-to-robot',
+    chapterNumber: 1,
+    levelNumber: 1,
     emoji: '🤖',
-    title: 'Lesson 1: What is Code? Talking to the Computer',
-    kidSubtitle: 'Computers are super-fast robots that follow simple instructions line-by-line!',
-    conceptComicTitle: 'What is a Programming Language?',
-    conceptComicExplanation:
-      'A computer does not understand human languages like English. A "programming language" is just a simple recipe of command words that tells the computer what to do step-by-step from top to bottom!',
-    conceptAnalogy: 'Think of code like baking cookies: if step 1 is "Mix flour", step 2 is "Add chocolate chips", and step 3 is "Bake for 10 mins", you must follow the steps in order or the cookies ruin!',
-    keywords: ['intro', 'introduction', 'programming language', 'print', 'hello world', 'output', 'syntax'],
+    title: 'Talking to the Robot',
+    shortTagline: 'Your First Line of Code',
+    conceptAnalogy:
+      'A computer is a super-fast, friendly robot. A program is just a recipe of words that tells the robot what to do line-by-line!',
+    goal: {
+      description: 'Make the robot display "Hello, World!" on the screen.',
+      expectedOutputIncludes: 'Hello, World!',
+      hint: 'Type print("Hello, World!") on line 1, then click "Run Code".',
+    },
+    xpReward: 50,
     starterCode: {
-      python: `# Lesson 1: Talking to the computer!
-print("Hello, Human!")
-print("I am your friendly robot computer.")
-print("I read instructions line-by-line!")`,
-      cpp: `// Lesson 1: Talking to the computer in C++!
+      python: `# Level 1: Tell the robot to speak!
+print("Hello, World!")`,
+      cpp: `// Level 1: Tell the robot to speak in C++!
 #include <iostream>
 int main() {
-    std::cout << "Hello, Human!" << std::endl;
-    std::cout << "I read instructions line-by-line!" << std::endl;
+    std::cout << "Hello, World!" << std::endl;
     return 0;
 }`,
-      java: `// Lesson 1: Talking to the computer in Java!
+      java: `// Level 1: Tell the robot to speak in Java!
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello, Human!");
-        System.out.println("I read instructions line-by-line!");
+        System.out.println("Hello, World!");
     }
 }`,
-      javascript: `// Lesson 1: Talking to the computer in JavaScript!
-console.log("Hello, Human!");
-console.log("I read instructions line-by-line!");`
-    }
+      javascript: `// Level 1: Tell the robot to speak in JavaScript!
+console.log("Hello, World!");`,
+    },
   },
 
-  // Lesson 2: Variables as storage boxes
+  // Level 2: Variables
   {
-    id: 'variables-storage-boxes',
-    stepOrder: 2,
+    id: 'level-2-storage-boxes',
+    chapterNumber: 2,
+    levelNumber: 2,
     emoji: '📦',
-    title: 'Lesson 2: Variables (Labeled Storage Boxes)',
-    kidSubtitle: 'A variable is a labeled cardboard box in the computer that remembers one thing!',
-    conceptComicTitle: 'What is a Variable?',
-    conceptComicExplanation:
-      'Imagine you have a cardboard box with a sticker label that says "coins". When you write "coins = 10", the computer drops 10 coins inside the box. Whenever you need it later, the computer just peeks inside!',
-    conceptAnalogy: 'A labeled box can only hold one current value. If you put 25 inside, the old 10 falls out!',
-    keywords: ['variable', 'assignment', 'declaration', 'data types', 'integer', 'int', 'store', 'primitive'],
+    title: 'The First Storage Box',
+    shortTagline: 'Variables are Labeled Boxes',
+    conceptAnalogy:
+      'A variable is like a cardboard box with a name sticker. When you write coins = 50, the robot drops 50 coins inside the box so it remembers it later!',
+    goal: {
+      description: 'Create a box named coins with the value 50.',
+      targetVarName: 'coins',
+      expectedValue: 50,
+      hint: 'Change coins = 10 to coins = 50 in the editor and run!',
+    },
+    xpReward: 50,
     starterCode: {
-      python: `# Lesson 2: Creating and peeking inside storage boxes!
-coins = 10
-player_name = "Alex"
-print(coins)
-print(player_name)`,
-      cpp: `// Lesson 2: Labeled boxes in C++!
+      python: `# Level 2: Create a storage box!
+coins = 50
+print(coins)`,
+      cpp: `// Level 2: Create a storage box in C++!
 #include <iostream>
 int main() {
-    int coins = 10;
-    int lives = 3;
+    int coins = 50;
     std::cout << coins << std::endl;
     return 0;
 }`,
-      java: `// Lesson 2: Labeled boxes in Java!
+      java: `// Level 2: Create a storage box in Java!
 public class Main {
     public static void main(String[] args) {
-        int coins = 10;
-        int lives = 3;
+        int coins = 50;
         System.out.println(coins);
     }
 }`,
-      javascript: `// Lesson 2: Labeled boxes in JavaScript!
-let coins = 10;
-let lives = 3;
-console.log(coins);`
-    }
+      javascript: `// Level 2: Create a storage box in JavaScript!
+let coins = 50;
+console.log(coins);`,
+    },
   },
 
-  // Lesson 3: Math and updating boxes
+  // Level 3: Math and Updates
   {
-    id: 'math-and-updating-boxes',
-    stepOrder: 3,
+    id: 'level-3-number-magic',
+    chapterNumber: 3,
+    levelNumber: 3,
     emoji: '🧮',
-    title: 'Lesson 3: Doing Math & Updating Boxes (score = score + 5)',
-    kidSubtitle: 'In coding, "=" does not mean math equals. It means "PUT INSIDE"!',
-    conceptComicTitle: 'Why Does "score = score + 5" Make Sense in Code?',
-    conceptComicExplanation:
-      'In math class, x = x + 5 looks crazy! But in coding, the "=" sign means: "Calculate the right side FIRST, then drop the answer inside the box on the left".',
-    conceptAnalogy: 'If you have 10 coins in your box and pick up 5 more, you look inside (10), add 5 (15), and drop 15 back into the box!',
-    keywords: ['arithmetic', 'expression', 'math', 'reassignment', 'update', 'increment', 'plus'],
+    title: 'Updating What is Inside',
+    shortTagline: 'In Code, "=" Means "Put Inside"',
+    conceptAnalogy:
+      'In math class, x = x + 5 looks crazy! But in code, "=" means: calculate the right side first (20 + 30 = 50), then drop 50 into the coins box!',
+    goal: {
+      description: 'Make the coins box reach a total value of 50.',
+      targetVarName: 'coins',
+      expectedValue: 50,
+      hint: 'Start with coins = 20, add bonus = 30, and update coins = coins + bonus.',
+    },
+    xpReward: 50,
     starterCode: {
-      python: `# Lesson 3: Updating boxes!
-score = 10
-bonus = 5
-score = score + bonus
-print(score)`,
-      cpp: `// Lesson 3: Updating boxes in C++!
+      python: `# Level 3: Math & Updating Boxes!
+coins = 20
+bonus = 30
+coins = coins + bonus
+print(coins)`,
+      cpp: `// Level 3: Math & Updating Boxes in C++!
 #include <iostream>
 int main() {
-    int score = 10;
-    int bonus = 5;
-    score = score + bonus;
-    std::cout << score << std::endl;
+    int coins = 20;
+    int bonus = 30;
+    coins = coins + bonus;
+    std::cout << coins << std::endl;
     return 0;
 }`,
-      java: `// Lesson 3: Updating boxes in Java!
+      java: `// Level 3: Math & Updating Boxes in Java!
 public class Main {
     public static void main(String[] args) {
-        int score = 10;
-        int bonus = 5;
-        score = score + bonus;
-        System.out.println(score);
+        int coins = 20;
+        int bonus = 30;
+        coins = coins + bonus;
+        System.out.println(coins);
     }
 }`,
-      javascript: `// Lesson 3: Updating boxes in JavaScript!
-let score = 10;
-let bonus = 5;
-score = score + bonus;
-console.log(score);`
-    }
+      javascript: `// Level 3: Math & Updating Boxes in JavaScript!
+let coins = 20;
+let bonus = 30;
+coins = coins + bonus;
+console.log(coins);`,
+    },
   },
 
-  // Lesson 4: If / Else decisions
+  // Level 4: If / Else Decision Gates
   {
-    id: 'if-else-decisions',
-    stepOrder: 4,
+    id: 'level-4-decision-gates',
+    chapterNumber: 4,
+    levelNumber: 4,
     emoji: '🚦',
-    title: 'Lesson 4: Making Decisions (if / else Forks in the Road)',
-    kidSubtitle: 'Teach your robot to ask a True/False question and choose which path to walk down!',
-    conceptComicTitle: 'What is an IF / ELSE Statement?',
-    conceptComicExplanation:
-      'Think of a traffic light or a video game test: "Do you have enough coins to buy the sword?" If YES (True), the game gives you the sword! Otherwise (ELSE), it says "Keep saving!".',
-    conceptAnalogy: 'Like choosing your clothes: IF it is raining outside, put on your boots! ELSE, wear sneakers!',
-    keywords: ['if', 'else', 'condition', 'boolean', 'decision', 'conditional', 'branching', 'greater than'],
+    title: 'The Decision Gate',
+    shortTagline: 'Forks in the Road',
+    conceptAnalogy:
+      'An if statement is like a castle guard: "Do you have at least 50 coins?" If YES, open the gate! If NO, keep walking.',
+    goal: {
+      description: 'Check if coins >= 50 and make the robot print "Gate Open!".',
+      expectedOutputIncludes: 'Gate Open!',
+      hint: 'Make sure coins is set to at least 50 so the if condition passes.',
+    },
+    xpReward: 75,
     starterCode: {
-      python: `# Lesson 4: Forks in the road!
-coins = 25
-if coins >= 20:
-    print("You unlocked the Magic Shield!")
+      python: `# Level 4: Decision Gates!
+coins = 50
+if coins >= 50:
+    print("Gate Open!")
 else:
-    print("Not enough coins yet!")`,
-      cpp: `// Lesson 4: Decisions in C++!
+    print("Locked!")`,
+      cpp: `// Level 4: Decisions in C++!
 #include <iostream>
 int main() {
-    int coins = 25;
-    if (coins >= 20) {
-        std::cout << "You unlocked the Magic Shield!" << std::endl;
+    int coins = 50;
+    if (coins >= 50) {
+        std::cout << "Gate Open!" << std::endl;
     } else {
-        std::cout << "Not enough coins yet!" << std::endl;
+        std::cout << "Locked!" << std::endl;
     }
     return 0;
 }`,
-      java: `// Lesson 4: Decisions in Java!
+      java: `// Level 4: Decisions in Java!
 public class Main {
     public static void main(String[] args) {
-        int coins = 25;
-        if (coins >= 20) {
-            System.out.println("You unlocked the Magic Shield!");
+        int coins = 50;
+        if (coins >= 50) {
+            System.out.println("Gate Open!");
         } else {
-            System.out.println("Not enough coins yet!");
+            System.out.println("Locked!");
         }
     }
 }`,
-      javascript: `// Lesson 4: Decisions in JavaScript!
-let coins = 25;
-if (coins >= 20) {
-    console.log("You unlocked the Magic Shield!");
+      javascript: `// Level 4: Decisions in JavaScript!
+let coins = 50;
+if (coins >= 50) {
+    console.log("Gate Open!");
 } else {
-    console.log("Not enough coins yet!");
-}`
-    }
+    console.log("Locked!");
+}`,
+    },
   },
 
-  // Lesson 5: Loops
+  // Level 5: Loops & Repeat Tracks
   {
-    id: 'loops-repeat-track',
-    stepOrder: 5,
+    id: 'level-5-repeat-track',
+    chapterNumber: 5,
+    levelNumber: 5,
     emoji: '🔄',
-    title: 'Lesson 5: Loops (Repeating Without Copy-Pasting)',
-    kidSubtitle: 'Why type the same line 100 times? Put the computer on a repeat loop track!',
-    conceptComicTitle: 'What is a Loop?',
-    conceptComicExplanation:
-      'A loop tells the robot to repeat a set of lines over and over, while keeping count of its laps using a counter box (often called "i").',
-    conceptAnalogy: 'Running laps on a track: Lap 1, Lap 2, Lap 3! Once you finish 4 laps, you exit the track!',
-    keywords: ['loop', 'for loop', 'while loop', 'iteration', 'repeat', 'counter', 'range'],
+    title: 'The Repeat Track',
+    shortTagline: 'Loops Repeat Automatically',
+    conceptAnalogy:
+      'Instead of typing the same command 100 times, a loop puts the robot on a running track that counts laps (0, 1, 2, 3...) until it finishes!',
+    goal: {
+      description: 'Run a loop that counts 4 laps.',
+      expectedOutputIncludes: 'Lap',
+      hint: 'Use a loop with range(4) or i < 4 to print 4 laps.',
+    },
+    xpReward: 75,
     starterCode: {
-      python: `# Lesson 5: A counting loop!
-for i in range(4):
-    print("Running lap number:")
-    print(i)`,
-      cpp: `// Lesson 5: A counting loop in C++!
+      python: `# Level 5: Running Laps!
+for lap in range(4):
+    print("Lap:")
+    print(lap)`,
+      cpp: `// Level 5: Loops in C++!
 #include <iostream>
 int main() {
-    for (int i = 0; i < 4; i++) {
-        std::cout << "Lap number: " << i << std::endl;
+    for (int lap = 0; lap < 4; lap++) {
+        std::cout << "Lap: " << lap << std::endl;
     }
     return 0;
 }`,
-      java: `// Lesson 5: A counting loop in Java!
+      java: `// Level 5: Loops in Java!
 public class Main {
     public static void main(String[] args) {
-        for (int i = 0; i < 4; i++) {
-            System.out.println("Lap number: " + i);
+        for (int lap = 0; lap < 4; lap++) {
+            System.out.println("Lap: " + lap);
         }
     }
 }`,
-      javascript: `// Lesson 5: A counting loop in JavaScript!
-for (let i = 0; i < 4; i++) {
-    console.log("Lap number: " + i);
-}`
-    }
+      javascript: `// Level 5: Loops in JavaScript!
+for (let lap = 0; lap < 4; lap++) {
+    console.log("Lap: " + lap);
+}`,
+    },
   },
 
-  // Lesson 6: Arrays / Lists as Lockers
+  // Level 6: Arrays / Lists as Numbered Lockers
   {
-    id: 'arrays-numbered-lockers',
-    stepOrder: 6,
+    id: 'level-6-locker-racks',
+    chapterNumber: 6,
+    levelNumber: 6,
     emoji: '🗄️',
-    title: 'Lesson 6: Lists & Arrays (A Row of Numbered Lockers)',
-    kidSubtitle: 'Store a whole collection of items in numbered lockers starting at #0!',
-    conceptComicTitle: 'What is an Array or List?',
-    conceptComicExplanation:
-      'Instead of creating 50 separate boxes named score1, score2, score3... an Array is a long row of lockers side-by-side. Each locker has an index number: Locker #0, Locker #1, Locker #2!',
-    conceptAnalogy: 'Why does computer science start counting at 0? Because index 0 means: "Start right at the front of the locker cabinet without taking any steps forward!"',
-    keywords: ['array', 'list', 'index', 'lockers', 'collection', 'elements', 'subscript'],
+    title: 'The Row of Lockers',
+    shortTagline: 'Lists & Arrays',
+    conceptAnalogy:
+      'Instead of making 20 separate boxes, an array is a row of lockers side-by-side. Each locker has an index number starting at #0!',
+    goal: {
+      description: 'Store a list of 3 numbers and print the item in locker #0.',
+      expectedOutputIncludes: '10',
+      hint: 'Access the first element using scores[0].',
+    },
+    xpReward: 100,
     starterCode: {
-      python: `# Lesson 6: Numbered lockers!
-scores = [15, 42, 8]
-print(scores[0])
-print(scores[1])`,
-      cpp: `// Lesson 6: Numbered lockers in C++!
+      python: `# Level 6: Numbered Lockers!
+scores = [10, 25, 99]
+print("Locker 0:")
+print(scores[0])`,
+      cpp: `// Level 6: Lockers in C++!
 #include <iostream>
 int main() {
-    int scores[3] = {15, 42, 8};
+    int scores[3] = {10, 25, 99};
     std::cout << scores[0] << std::endl;
-    std::cout << scores[1] << std::endl;
     return 0;
 }`,
-      java: `// Lesson 6: Numbered lockers in Java!
+      java: `// Level 6: Lockers in Java!
 public class Main {
     public static void main(String[] args) {
-        int[] scores = {15, 42, 8};
+        int[] scores = {10, 25, 99};
         System.out.println(scores[0]);
-        System.out.println(scores[1]);
     }
 }`,
-      javascript: `// Lesson 6: Numbered lockers in JavaScript!
-const scores = [15, 42, 8];
-console.log(scores[0]);
-console.log(scores[1]);`
-    }
+      javascript: `// Level 6: Lockers in JavaScript!
+const scores = [10, 25, 99];
+console.log(scores[0]);`,
+    },
   },
 
-  // Lesson 7: Functions
+  // Level 7: Functions / Mini-Machines
   {
-    id: 'functions-mini-machines',
-    stepOrder: 7,
+    id: 'level-7-mini-machines',
+    chapterNumber: 7,
+    levelNumber: 7,
     emoji: '⚙️',
-    title: 'Lesson 7: Functions (Reusable Mini-Machines)',
-    kidSubtitle: 'Give ingredients to a mini-machine, and it returns the finished product!',
-    conceptComicTitle: 'What is a Function?',
-    conceptComicExplanation:
-      'A function is like a blender: you pour fruit and milk into it (called parameters), it runs its recipe, and pours out a delicious smoothie (the return value)!',
-    conceptAnalogy: 'Once you build a "doubleNumber" machine, you can use it 1,000 times without re-inventing how to multiply by 2 every time!',
-    keywords: ['function', 'method', 'parameters', 'arguments', 'return', 'def', 'reuse'],
+    title: 'Magic Machines',
+    shortTagline: 'Functions & Reusable Code',
+    conceptAnalogy:
+      'A function is like a blender: feed ingredients in (parameters), run the recipe, and pop out the finished smoothie (return value)!',
+    goal: {
+      description: 'Call a doubling function to produce a result of 50.',
+      targetVarName: 'result',
+      expectedValue: 50,
+      hint: 'Pass 25 into double_number(25) so it returns 50.',
+    },
+    xpReward: 100,
     starterCode: {
-      python: `# Lesson 7: A doubling mini-machine!
-def double_coins(amount):
-    return amount * 2
+      python: `# Level 7: Functions!
+def double_number(n):
+    return n * 2
 
-reward = double_coins(10)
-print(reward)`,
-      cpp: `// Lesson 7: Mini-machine in C++!
+result = double_number(25)
+print(result)`,
+      cpp: `// Level 7: Functions in C++!
 #include <iostream>
-int doubleCoins(int amount) {
-    return amount * 2;
+int doubleNumber(int n) {
+    return n * 2;
 }
 int main() {
-    int reward = doubleCoins(10);
-    std::cout << reward << std::endl;
+    int result = doubleNumber(25);
+    std::cout << result << std::endl;
     return 0;
 }`,
-      java: `// Lesson 7: Mini-machine in Java!
+      java: `// Level 7: Functions in Java!
 public class Main {
-    public static int doubleCoins(int amount) {
-        return amount * 2;
+    public static int doubleNumber(int n) {
+        return n * 2;
     }
     public static void main(String[] args) {
-        int reward = doubleCoins(10);
-        System.out.println(reward);
+        int result = doubleNumber(25);
+        System.out.println(result);
     }
 }`,
-      javascript: `// Lesson 7: Mini-machine in JavaScript!
-function doubleCoins(amount) {
-    return amount * 2;
+      javascript: `// Level 7: Functions in JavaScript!
+function doubleNumber(n) {
+    return n * 2;
 }
-const reward = doubleCoins(10);
-console.log(reward);`
-    }
+const result = doubleNumber(25);
+console.log(result);`,
+    },
   },
 
-  // Lesson 8: Pointers & Remote Controls
+  // Level 8: Pointers & Remote Controls
   {
-    id: 'pointers-remote-controls',
-    stepOrder: 8,
+    id: 'level-8-remote-controls',
+    chapterNumber: 8,
+    levelNumber: 8,
     emoji: '🎯',
-    title: 'Lesson 8: Pointers & References (A Remote Control to Another Box)',
-    kidSubtitle: 'Instead of holding a number, a pointer holds a remote control aimed at another box!',
-    conceptComicTitle: 'What is a Pointer or Reference?',
-    conceptComicExplanation:
-      'Instead of holding an apple itself, you hold a piece of paper with an arrow pointing to your friend\'s lunchbox. Changing the lunchbox with your pointer changes what is inside their box!',
-    conceptAnalogy: 'A TV remote control: pressing "Channel 5" on the remote doesn\'t change the remote itself—it changes the television across the room!',
-    keywords: ['pointer', 'reference', 'dereference', 'address-of', 'ampersand', 'asterisk', 'memory address'],
+    title: 'The Remote Control',
+    shortTagline: 'Pointers & References',
+    conceptAnalogy:
+      'A pointer holds a remote control pointing to another box across the room. Using the pointer (*ptr = 99) changes the target box!',
+    goal: {
+      description: 'Use a pointer or reference to update score to 99.',
+      targetVarName: 'score',
+      expectedValue: 99,
+      hint: 'Dereference the remote pointer using *remote = 99.',
+    },
+    xpReward: 100,
     starterCode: {
-      python: `# In Python, object variables act like remote controls!
-class Lunchbox:
-    def __init__(self, snack):
-        self.snack = snack
+      python: `# Level 8: Remote Controls!
+class Box:
+    def __init__(self, val):
+        self.val = val
 
-box1 = Lunchbox("Apple")
-remote = box1  # points to the same box!
-remote.snack = "Pizza"
-print(box1.snack)`,
-      cpp: `// Pointers in C++: A remote control to a variable!
+score_box = Box(42)
+remote = score_box
+remote.val = 99
+score = score_box.val
+print(score)`,
+      cpp: `// Level 8: Pointers in C++!
 #include <iostream>
 int main() {
     int score = 42;
-    int* remote = &score; // point remote at score
-    *remote = 99;         // press button to change score
+    int* remote = &score;
+    *remote = 99;
     std::cout << score << std::endl;
     return 0;
 }`,
-      java: `// Object references in Java act like remote controls!
-class Lunchbox { String snack = "Apple"; }
+      java: `// Level 8: Object references in Java!
+class Box { int val = 42; }
 public class Main {
     public static void main(String[] args) {
-        Lunchbox box1 = new Lunchbox();
-        Lunchbox remote = box1; // remote points to box1
-        remote.snack = "Pizza";
-        System.out.println(box1.snack);
+        Box b = new Box();
+        Box remote = b;
+        remote.val = 99;
+        int score = b.val;
+        System.out.println(score);
     }
 }`,
-      javascript: `// Object references in JS act like remote controls!
-const box1 = { snack: "Apple" };
-const remote = box1; // remote points to box1
-remote.snack = "Pizza";
-console.log(box1.snack);`
-    }
-  }
+      javascript: `// Level 8: Object references in JavaScript!
+const box = { val: 42 };
+const remote = box;
+remote.val = 99;
+const score = box.val;
+console.log(score);`,
+    },
+  },
 ];

@@ -1,69 +1,72 @@
 export type SupportedLanguage = 'python' | 'cpp' | 'java' | 'javascript';
 
-export interface WordBreakdown {
-  token: string;          // e.g. "int", "score", "=", "10", ";"
-  color: 'purple' | 'blue' | 'amber' | 'emerald' | 'rose' | 'slate';
-  simpleMeaning: string;  // e.g. "Tells the computer this box holds a whole number"
+export interface MissionGoal {
+  description: string;            // Simple 1-sentence goal e.g. "Make the robot print 'Hello, World!'"
+  targetVarName?: string;         // Variable to inspect e.g. "coins"
+  expectedValue?: any;            // Target value e.g. 50
+  expectedOutputIncludes?: string;// Text printed to screen e.g. "Hello, World!"
+  hint: string;                   // Friendly hint if student is stuck
 }
 
-export interface VisualBox {
-  name: string;           // Box label e.g. "score"
+export interface LevelMission {
+  id: string;
+  chapterNumber: number;
+  levelNumber: number;
+  emoji: string;
+  title: string;
+  shortTagline: string;
+  conceptAnalogy: string;         // 1-2 sentence real-world metaphor
+  goal: MissionGoal;
+  starterCode: Record<SupportedLanguage, string>;
+  xpReward: number;
+}
+
+export interface RoadmapChapter {
+  id: string;
+  chapterNumber: number;
+  title: string;
+  subtitle: string;
+  icon: string;
+  levels: LevelMission[];
+}
+
+export interface VisualStorageBox {
+  name: string;
   value: string | number;
-  previousValue?: string | number; // Shows "10 ➔ 15" transition animation
-  boxType: 'number' | 'text' | 'boolean' | 'list' | 'pointer';
-  friendlyTypeLabel: string; // e.g. "Whole Number Box", "Text Box", "Locker Row"
-  status: 'created' | 'updated' | 'read' | 'unchanged';
-  listValues?: (string | number)[]; // If it's a list/array, shows numbered lockers #0, #1, #2
-  activeLockerIndex?: number;       // Highlights which locker is being opened
-  pointsToBoxName?: string;         // If it's a pointer, which box it points to
-}
-
-export interface ConditionCheckVisual {
-  expression: string;     // e.g. "score > 10"
-  substituted: string;    // e.g. "Is 15 > 10?"
-  result: boolean;        // true = YES ✅, false = NO ❌
-  explanation: string;
-}
-
-export interface LoopTrackVisual {
-  loopType: 'for' | 'while';
-  currentLap: number;
-  totalLaps?: number;
-  conditionText: string;
+  previousValue?: string | number;
+  isNew?: boolean;
+  hasChanged?: boolean;
+  typeLabel: string;              // "Number", "Text", "Locker Row", "Remote Pointer"
+  listItems?: (string | number)[];
+  activeLockerIdx?: number;
+  pointsToBoxName?: string;
 }
 
 export interface LiveTraceStep {
   stepNumber: number;
-  lineNumber: number;            // 1-indexed line in student's code
-  rawCodeLine: string;
-  headline: string;              // Short friendly title e.g. "Create a new box called 'score'"
-  storyExplanation: string;      // Friendly 10-year-old explanation of what the robot just did
-  wordBreakdowns: WordBreakdown[];// Explains every word and symbol on this line!
-  boxes: VisualBox[];            // All storage boxes currently in memory
-  conditionCheck?: ConditionCheckVisual;
-  loopInfo?: LoopTrackVisual;
-  screenOutput: string[];        // Lines printed to screen so far
-  errorHelp?: string;            // Friendly hint if student made a typo
+  lineNumber: number;
+  rawLine: string;
+  storyHeadline: string;
+  storyDetail: string;
+  boxes: VisualStorageBox[];
+  conditionCheck?: {
+    question: string;
+    result: boolean;
+    explanation: string;
+  };
+  loopCheck?: {
+    currentLap: number;
+    totalLaps?: number;
+    conditionText: string;
+  };
+  screenOutput: string[];
 }
 
-export interface StarterLesson {
-  id: string;
-  stepOrder: number;
-  emoji: string;
-  title: string;
-  kidSubtitle: string;
-  conceptComicTitle: string;
-  conceptComicExplanation: string;
-  conceptAnalogy: string;
-  keywords: string[];            // Used by Syllabus PDF/Image Matcher
-  starterCode: Record<SupportedLanguage, string>;
-}
-
-export interface SyllabusWeekItem {
+export interface SyllabusRoadmapItem {
   id: string;
   weekLabel: string;
   rawMatchedLine: string;
-  lessonId: string;
+  matchedMissionId: string;
   completed: boolean;
 }
 
@@ -71,6 +74,5 @@ export interface CustomSyllabusRoadmap {
   courseTitle: string;
   detectedLanguage: SupportedLanguage;
   createdAt: string;
-  extractedTextPreview: string;
-  items: SyllabusWeekItem[];
+  items: SyllabusRoadmapItem[];
 }

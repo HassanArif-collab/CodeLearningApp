@@ -11,12 +11,10 @@ import {
   SAMPLE_SYLLABI,
 } from '../../services/syllabusMatcher';
 import { CustomSyllabusRoadmap } from '../../types/visualizer';
-import { STARTER_LESSONS } from '../../data/conceptsData';
-import { AdSlot } from '../monetization/AdSlot';
+import { ALL_MISSIONS } from '../../data/conceptsData';
 import {
   Upload,
   FileText,
-  Image as ImageIcon,
   CheckCircle2,
   ArrowRight,
   BookOpen,
@@ -100,78 +98,78 @@ export const SyllabusUploadView: React.FC = () => {
   const percentComplete = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-8 space-y-8">
-      {/* Header Banner */}
-      <div className="text-center max-w-2xl mx-auto space-y-3">
-        <div className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 rounded-full uppercase tracking-wider">
-          <Sparkles className="h-3.5 w-3.5" />
-          <span>Upload School or University Syllabus</span>
+    <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
+      {/* Header */}
+      <div className="text-center max-w-xl mx-auto space-y-2">
+        <div className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20 font-mono">
+          <Sparkles className="h-3 w-3" />
+          <span>Upload Teacher Syllabus (PDF / Photo)</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
-          Match Your Exact Class Syllabus
+        <h1 className="text-2xl sm:text-3xl font-black text-white">
+          Generate Your Custom Class Path
         </h1>
-        <p className="text-xs sm:text-sm text-slate-300">
-          Upload your teacher's <strong>PDF</strong>, take a <strong>photo of a printed handout</strong> with your phone, or pick a starter syllabus. We will build a friendly week-by-week visual roadmap for your class!
+        <p className="text-xs sm:text-sm text-slate-400">
+          Upload your syllabus PDF or take a photo of a printed handout. We will match your class topics to interactive missions.
         </p>
       </div>
 
       {/* Main Import Interface */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+      <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
         {/* Tab Switcher */}
         <div className="flex border-b border-slate-800 bg-slate-950/60 p-2 gap-2">
           <button
             onClick={() => setActiveTab('upload')}
-            className={`flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition ${
+            className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition ${
               activeTab === 'upload'
                 ? 'bg-slate-800 text-emerald-400 border border-slate-700 shadow-sm'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            <Upload className="h-4 w-4" />
-            <span>Upload PDF or Photo</span>
+            <Upload className="h-3.5 w-3.5" />
+            <span>Upload PDF / Photo</span>
           </button>
           <button
             onClick={() => setActiveTab('paste')}
-            className={`flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition ${
+            className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition ${
               activeTab === 'paste'
                 ? 'bg-slate-800 text-emerald-400 border border-slate-700 shadow-sm'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            <FileText className="h-4 w-4" />
-            <span>Paste Syllabus Text</span>
+            <FileText className="h-3.5 w-3.5" />
+            <span>Paste Text</span>
           </button>
           <button
             onClick={() => setActiveTab('presets')}
-            className={`flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition ${
+            className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition ${
               activeTab === 'presets'
                 ? 'bg-slate-800 text-emerald-400 border border-slate-700 shadow-sm'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            <BookOpen className="h-4 w-4" />
+            <BookOpen className="h-3.5 w-3.5" />
             <span>Sample Syllabi</span>
           </button>
         </div>
 
         <div className="p-6">
           {/* Optional Course Title Input */}
-          <div className="max-w-md mx-auto mb-6">
-            <label className="block text-xs font-semibold text-slate-400 mb-1">
-              Course / Class Name (Optional):
+          <div className="max-w-md mx-auto mb-5">
+            <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">
+              Class Name (Optional):
             </label>
             <input
               type="text"
               value={courseTitleInput}
               onChange={(e) => setCourseTitleInput(e.target.value)}
-              placeholder="e.g. My Semester 1 Coding Class"
-              className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-xs text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500"
+              placeholder="e.g. CS101: Intro to Coding"
+              className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500"
             />
           </div>
 
           {activeTab === 'upload' && (
-            <div className="max-w-xl mx-auto space-y-4">
-              <label className="border-2 border-dashed border-slate-700 hover:border-emerald-500/80 bg-slate-950/60 rounded-2xl p-8 flex flex-col items-center justify-center text-center cursor-pointer transition group">
+            <div className="max-w-md mx-auto space-y-4">
+              <label className="border-2 border-dashed border-slate-700 hover:border-emerald-500 bg-slate-950/60 rounded-2xl p-6 flex flex-col items-center justify-center text-center cursor-pointer transition">
                 <input
                   type="file"
                   accept=".pdf,image/png,image/jpeg,image/jpg,image/webp,.txt"
@@ -179,23 +177,19 @@ export const SyllabusUploadView: React.FC = () => {
                   disabled={isProcessing}
                   className="hidden"
                 />
-                <div className="h-16 w-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-4 group-hover:scale-110 transition">
-                  <Upload className="h-8 w-8" />
+                <div className="h-12 w-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-3">
+                  <Upload className="h-6 w-6" />
                 </div>
-                <h3 className="text-sm font-bold text-white mb-1">
-                  Click to Choose or Drag Syllabus Here
+                <h3 className="text-xs font-bold text-white mb-0.5">
+                  Click to Choose or Drag Syllabus
                 </h3>
-                <p className="text-xs text-slate-400 max-w-sm mb-3">
-                  Upload a <span className="text-emerald-400 font-semibold">PDF</span> or <span className="text-emerald-400 font-semibold">Photo/Screenshot (PNG, JPG)</span>.
+                <p className="text-[11px] text-slate-500">
+                  Accepts PDF (digital or scanned) and Photos (PNG, JPG).
                 </p>
-                <div className="flex items-center gap-3 text-[11px] text-slate-500">
-                  <span className="flex items-center gap-1"><FileText className="h-3.5 w-3.5 text-rose-400" /> PDF Reader</span>
-                  <span className="flex items-center gap-1"><ImageIcon className="h-3.5 w-3.5 text-sky-400" /> Image OCR</span>
-                </div>
               </label>
 
               {isProcessing && progress && (
-                <div className="bg-slate-950 border border-emerald-500/40 rounded-xl p-4 space-y-2">
+                <div className="bg-slate-950 border border-emerald-500/40 rounded-xl p-3.5 space-y-2">
                   <div className="flex items-center justify-between text-xs">
                     <span className="font-semibold text-emerald-400 flex items-center gap-2">
                       <RefreshCw className="h-3.5 w-3.5 animate-spin" />
@@ -203,7 +197,7 @@ export const SyllabusUploadView: React.FC = () => {
                     </span>
                     <span className="font-mono text-slate-300 font-bold">{progress.percent}%</span>
                   </div>
-                  <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
+                  <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
                     <div
                       className="h-full bg-emerald-500 transition-all duration-300"
                       style={{ width: `${progress.percent}%` }}
@@ -215,42 +209,42 @@ export const SyllabusUploadView: React.FC = () => {
           )}
 
           {activeTab === 'paste' && (
-            <div className="max-w-2xl mx-auto space-y-4">
+            <div className="max-w-xl mx-auto space-y-3">
               <textarea
-                rows={7}
+                rows={6}
                 value={pastedText}
                 onChange={(e) => setPastedText(e.target.value)}
-                placeholder="Paste your course outline, lecture topics, or homework syllabus here... e.g.&#10;Week 1: Intro to variables and printing&#10;Week 2: Math and updating values&#10;Week 3: If statements and decisions&#10;Week 4: Loops and counting..."
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs font-mono text-slate-200 placeholder-slate-600 focus:outline-none focus:border-emerald-500"
+                placeholder="Paste your course outline, lecture topics, or weekly syllabus here..."
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 font-mono text-xs text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500"
               />
               <button
                 onClick={handleParsePastedText}
-                className="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs sm:text-sm transition flex items-center justify-center gap-2"
+                className="w-full py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs transition flex items-center justify-center gap-1.5"
               >
-                <Sparkles className="h-4 w-4" />
+                <Sparkles className="h-3.5 w-3.5" />
                 <span>Build My Class Roadmap</span>
               </button>
             </div>
           )}
 
           {activeTab === 'presets' && (
-            <div className="max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-3">
               {SAMPLE_SYLLABI.map((sample, idx) => (
                 <button
                   key={idx}
                   onClick={() => handleSelectPreset(sample)}
-                  className="text-left p-4 rounded-xl border border-slate-800 bg-slate-950 hover:border-emerald-500/50 hover:bg-slate-900 transition flex flex-col justify-between"
+                  className="text-left p-3.5 rounded-xl border border-slate-800 bg-slate-950 hover:border-emerald-500/50 hover:bg-slate-900 transition flex flex-col justify-between"
                 >
                   <div>
-                    <span className="text-[10px] uppercase font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded font-mono mb-2 inline-block">
+                    <span className="text-[9px] uppercase font-bold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.2 rounded font-mono mb-1.5 inline-block">
                       {sample.language.toUpperCase()}
                     </span>
                     <h4 className="text-xs font-bold text-white mb-1">{sample.title}</h4>
-                    <p className="text-[11px] text-slate-400 line-clamp-3 font-mono">
+                    <p className="text-[11px] text-slate-400 line-clamp-2">
                       {sample.text}
                     </p>
                   </div>
-                  <span className="text-xs text-emerald-400 font-bold mt-3">Select Syllabus →</span>
+                  <span className="text-xs text-emerald-400 font-bold mt-2">Select →</span>
                 </button>
               ))}
             </div>
@@ -266,33 +260,29 @@ export const SyllabusUploadView: React.FC = () => {
 
       {/* Generated Roadmap */}
       {roadmap && (
-        <div className="space-y-6 pt-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+        <div className="space-y-4 pt-2">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
               <div>
-                <div className="flex items-center gap-2 mb-1">
+                <div className="flex items-center gap-2 mb-0.5">
                   <Calendar className="h-4 w-4 text-emerald-400" />
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                    Your Personalized Course Path
+                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                    Your Class Roadmap
                   </span>
-                  <span className="text-xs font-mono uppercase bg-emerald-500/10 text-emerald-300 px-2 py-0.5 rounded border border-emerald-500/20">
-                    Language: {roadmap.detectedLanguage.toUpperCase()}
+                  <span className="text-[10px] font-mono uppercase bg-emerald-500/10 text-emerald-300 px-2 py-0.2 rounded">
+                    {roadmap.detectedLanguage.toUpperCase()}
                   </span>
                 </div>
-                <h2 className="text-xl sm:text-2xl font-black text-white">{roadmap.courseTitle}</h2>
+                <h2 className="text-lg font-bold text-white">{roadmap.courseTitle}</h2>
               </div>
 
               <div className="text-right">
-                <div className="text-2xl font-black text-emerald-400 font-mono">
-                  {percentComplete}%
-                </div>
-                <div className="text-xs text-slate-400">
-                  {completedCount} of {totalCount} topics mastered
-                </div>
+                <span className="text-xl font-bold font-mono text-emerald-400">{percentComplete}%</span>
+                <span className="text-xs text-slate-400 block">{completedCount} of {totalCount} completed</span>
               </div>
             </div>
 
-            <div className="h-2 w-full bg-slate-950 rounded-full overflow-hidden border border-slate-800">
+            <div className="h-1.5 w-full bg-slate-950 rounded-full overflow-hidden">
               <div
                 className="h-full bg-emerald-500 transition-all duration-500"
                 style={{ width: `${percentComplete}%` }}
@@ -300,66 +290,52 @@ export const SyllabusUploadView: React.FC = () => {
             </div>
           </div>
 
-          {/* Lessons List */}
-          <div className="space-y-3">
-            {roadmap.items.map((item, idx) => {
-              const matchedLesson = STARTER_LESSONS.find((l) => l.id === item.lessonId);
+          <div className="space-y-2">
+            {roadmap.items.map((item) => {
+              const matchedMission = ALL_MISSIONS.find((m) => m.id === item.matchedMissionId);
 
               return (
                 <div
                   key={item.id}
-                  className={`p-4 rounded-xl border transition-all ${
+                  className={`p-3.5 rounded-xl border transition-all ${
                     item.completed
                       ? 'border-emerald-500/30 bg-emerald-950/10'
-                      : 'border-slate-800 bg-slate-900/90 hover:border-slate-700'
+                      : 'border-slate-800 bg-slate-900 hover:border-slate-700'
                   }`}
                 >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div className="flex items-start gap-3">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3">
                       <button
                         onClick={() => handleToggleComplete(item.id)}
-                        className={`mt-0.5 h-6 w-6 rounded-lg border flex items-center justify-center transition shrink-0 ${
+                        className={`h-5 w-5 rounded-md border flex items-center justify-center transition shrink-0 ${
                           item.completed
                             ? 'border-emerald-500 bg-emerald-500 text-slate-950'
-                            : 'border-slate-700 bg-slate-950 text-transparent hover:border-slate-500'
+                            : 'border-slate-700 bg-slate-950 text-transparent'
                         }`}
-                        title="Mark as Finished"
                       >
-                        <CheckCircle2 className="h-4 w-4 fill-current" />
+                        <CheckCircle2 className="h-3.5 w-3.5 fill-current" />
                       </button>
 
                       <div>
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="text-[11px] font-bold text-emerald-400 uppercase tracking-wider font-mono">
+                        <div className="flex items-center gap-2">
+                          <span className="text-[10px] font-bold text-emerald-400 uppercase font-mono">
                             {item.weekLabel}
                           </span>
-                          <span className="text-[10px] text-slate-500">#{idx + 1}</span>
                         </div>
-
-                        <h3
-                          className={`text-sm sm:text-base font-bold ${
-                            item.completed ? 'text-slate-400 line-through' : 'text-white'
-                          }`}
-                        >
-                          {matchedLesson ? matchedLesson.title : item.rawMatchedLine}
-                        </h3>
-
-                        {matchedLesson && (
-                          <p className="text-xs text-slate-400 mt-1">
-                            {matchedLesson.kidSubtitle}
-                          </p>
-                        )}
+                        <h4 className={`text-xs sm:text-sm font-bold ${item.completed ? 'text-slate-400 line-through' : 'text-white'}`}>
+                          {matchedMission ? matchedMission.title : item.rawMatchedLine}
+                        </h4>
                       </div>
                     </div>
 
-                    {matchedLesson && (
+                    {matchedMission && (
                       <Link
-                        to={`/lesson/${matchedLesson.id}?lang=${roadmap.detectedLanguage}`}
-                        className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-emerald-500 hover:text-slate-950 text-emerald-300 transition shrink-0 border border-slate-700"
+                        to={`/mission/${matchedMission.id}?lang=${roadmap.detectedLanguage}`}
+                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 hover:bg-emerald-500 hover:text-slate-950 text-emerald-300 transition shrink-0"
                       >
-                        <Code2 className="h-3.5 w-3.5" />
-                        <span>Open & Write Code</span>
-                        <ArrowRight className="h-3.5 w-3.5" />
+                        <Code2 className="h-3 w-3" />
+                        <span>Play</span>
+                        <ArrowRight className="h-3 w-3" />
                       </Link>
                     )}
                   </div>
@@ -367,8 +343,6 @@ export const SyllabusUploadView: React.FC = () => {
               );
             })}
           </div>
-
-          <AdSlot slotType="leaderboard" />
         </div>
       )}
     </div>

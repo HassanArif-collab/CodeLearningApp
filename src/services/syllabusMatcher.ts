@@ -1,17 +1,17 @@
-import { CustomSyllabusRoadmap, SupportedLanguage, SyllabusWeekItem } from '../types/visualizer';
-import { STARTER_LESSONS } from '../data/conceptsData';
+import { CustomSyllabusRoadmap, SupportedLanguage, SyllabusRoadmapItem } from '../types/visualizer';
+import { ALL_MISSIONS } from '../data/conceptsData';
 
-const STORAGE_KEY = 'codelens_custom_roadmap_v2';
+const STORAGE_KEY = 'codelens_custom_roadmap_v3';
 
 export const SAMPLE_SYLLABI: { title: string; language: SupportedLanguage; text: string }[] = [
   {
     title: 'Beginner Coding 101 (Python)',
     language: 'python',
     text: `Intro to Computer Science & Coding Basics
-Week 1: What is a computer program? Using print statements to talk to the screen.
-Week 2: Variables as storage boxes, numbers, strings, and variable naming.
-Week 3: Doing math in code, updating variables, and accumulator patterns.
-Week 4: If / else decision forks, comparisons, and boolean logic.
+Week 1: Talking to the computer: print statements and output.
+Week 2: Variables as storage boxes, numbers, and strings.
+Week 3: Doing math in code and updating variables.
+Week 4: If / else decision gates and comparisons.
 Week 5: For loops, repeat tracks, and counting iterations.
 Week 6: Lists, sequences, and accessing items by index number.`
   },
@@ -32,7 +32,7 @@ Unit 7: Pointers, memory addresses (&), and dereferencing (*).`
     language: 'java',
     text: `CS 201: Java Programming Fundamentals
 Module 1: Java basics, System.out.println, and the main method.
-Module 2: Primitive variables, int, boolean, and assignment statements.
+Module 2: Variables, int, boolean, and assignment statements.
 Module 3: Mathematical expressions and updating variable values.
 Module 4: Decision making: If and Else statements in Java.
 Module 5: Looping constructs: For and While repeat loops.
@@ -53,7 +53,7 @@ export function detectLanguageFromSyllabus(text: string): SupportedLanguage {
   if (lower.includes('javascript') || lower.includes('console.log') || lower.includes('let ') || lower.includes('const ')) jsScore += 8;
 
   const max = Math.max(cppScore, pythonScore, javaScore, jsScore);
-  if (max === 0) return 'python'; // Default to easiest for beginners
+  if (max === 0) return 'python';
 
   if (max === pythonScore) return 'python';
   if (max === cppScore) return 'cpp';
@@ -68,8 +68,8 @@ export function parseSyllabusToRoadmap(
   const detectedLanguage = detectLanguageFromSyllabus(rawText);
   const lines = rawText.split('\n').map((l) => l.trim()).filter((l) => l.length > 5);
 
-  const matchedItems: SyllabusWeekItem[] = [];
-  const usedLessons = new Set<string>();
+  const matchedItems: SyllabusRoadmapItem[] = [];
+  const usedMissions = new Set<string>();
 
   const labelRegex = /(Week\s+\d+|Unit\s+\d+|Module\s+\d+|Lecture\s+\d+|Chapter\s+\d+)/i;
   let seq = 1;
@@ -79,46 +79,56 @@ export function parseSyllabusToRoadmap(
     const labelMatch = line.match(labelRegex);
     const weekLabel = labelMatch ? labelMatch[1] : `Lesson ${seq}`;
 
-    let bestLessonId: string | null = null;
+    let bestMissionId: string | null = null;
     let highestScore = 0;
 
-    for (const lesson of STARTER_LESSONS) {
-      if (usedLessons.has(lesson.id)) continue;
+    for (const mission of ALL_MISSIONS) {
+      if (usedMissions.has(mission.id)) continue;
 
       let score = 0;
-      for (const kw of lesson.keywords) {
-        if (lower.includes(kw.toLowerCase())) score += 2;
+      const kwList = [mission.title.toLowerCase(), mission.shortTagline.toLowerCase()];
+      if (mission.levelNumber === 1 && (lower.includes('print') || lower.includes('output') || lower.includes('hello'))) score += 3;
+      if (mission.levelNumber === 2 && (lower.includes('variable') || lower.includes('declaration') || lower.includes('assignment'))) score += 3;
+      if (mission.levelNumber === 3 && (lower.includes('math') || lower.includes('arithmetic') || lower.includes('update'))) score += 3;
+      if (mission.levelNumber === 4 && (lower.includes('if') || lower.includes('else') || lower.includes('condition'))) score += 3;
+      if (mission.levelNumber === 5 && (lower.includes('loop') || lower.includes('for') || lower.includes('while'))) score += 3;
+      if (mission.levelNumber === 6 && (lower.includes('array') || lower.includes('list') || lower.includes('index'))) score += 3;
+      if (mission.levelNumber === 7 && (lower.includes('function') || lower.includes('method') || lower.includes('parameters'))) score += 3;
+      if (mission.levelNumber === 8 && (lower.includes('pointer') || lower.includes('reference') || lower.includes('address'))) score += 3;
+
+      for (const kw of kwList) {
+        if (lower.includes(kw)) score += 2;
       }
 
       if (score > highestScore) {
         highestScore = score;
-        bestLessonId = lesson.id;
+        bestMissionId = mission.id;
       }
     }
 
-    if (bestLessonId && highestScore >= 2) {
-      usedLessons.add(bestLessonId);
+    if (bestMissionId && highestScore >= 2) {
+      usedMissions.add(bestMissionId);
       matchedItems.push({
         id: `step-${seq}`,
         weekLabel,
         rawMatchedLine: line,
-        lessonId: bestLessonId,
+        matchedMissionId: bestMissionId,
         completed: false,
       });
       seq++;
     }
   }
 
-  // Fallback: Add remaining lessons if fewer than 4 matched
+  // Fallback: Add remaining missions if fewer than 4 matched
   if (matchedItems.length < 4) {
-    for (const lesson of STARTER_LESSONS) {
-      if (!usedLessons.has(lesson.id) && matchedItems.length < 6) {
-        usedLessons.add(lesson.id);
+    for (const mission of ALL_MISSIONS) {
+      if (!usedMissions.has(mission.id) && matchedItems.length < 6) {
+        usedMissions.add(mission.id);
         matchedItems.push({
           id: `step-${seq}`,
           weekLabel: `Lesson ${seq}`,
-          rawMatchedLine: lesson.title,
-          lessonId: lesson.id,
+          rawMatchedLine: mission.title,
+          matchedMissionId: mission.id,
           completed: false,
         });
         seq++;
@@ -130,7 +140,6 @@ export function parseSyllabusToRoadmap(
     courseTitle: userSelectedTitle || 'My School Coding Roadmap',
     detectedLanguage,
     createdAt: new Date().toISOString(),
-    extractedTextPreview: rawText.slice(0, 300) + (rawText.length > 300 ? '...' : ''),
     items: matchedItems,
   };
 
